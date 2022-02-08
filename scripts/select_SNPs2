@@ -1,0 +1,5 @@
+gatk SelectVariants \
+	-R ./results/hybpiper/refs/purpurea.fa \
+	-O ./results/filtered_genotypes/ref_purpurea_SNPs.vcf \
+	-V ./results/raw_genotypes/purpurea_unfiltered.vcf.gz \
+	--select-type-to-include SNP
