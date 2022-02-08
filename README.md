@@ -126,13 +126,16 @@ the filtering process first extracts variants with not more than 2 alleles and t
 The files with the known variants are:
 
 ./results/known/militaris/calls.filter.vcf
+
 ./results/known/purpurea/calls.filter.vcf
 
 then, generate the index from these:
 
+```sh
 gatk IndexFeatureFile -I ./results/known/militaris/calls.filter.vcf
-gatk IndexFeatureFile -I ./results/known/purpurea/calls.filter.vcf
 
+gatk IndexFeatureFile -I ./results/known/purpurea/calls.filter.vcf
+```
 
 ## 7)  Performing Base Quality Score Recalibration (BQSR) (gatk required)
 
