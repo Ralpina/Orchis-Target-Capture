@@ -103,14 +103,14 @@ To perform the next steps in GATK, We will need to define the following:
     RGPU=String Read Group platform unit (eg. run barcode of run Id + lane number)
     RGSM=String Read Group sample name
 
-script: addRG.sh
+script: addRG.sh, addRG2.sh
 
 
 ## 6) Getting the "known-sites"  (bcftools, samtools and gatk required)
 
 The next step (gatk BQSR) needs a list of known sites to work correctly.
 We follow the intructions from https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-
-and do an initial round of variant calling on your original, unrecalibrated data, followed by filtering, using bcftools
+and do an initial round of variant calling on your original, unrecalibrated data, followed by filtering, using bcftools.
 As usual, we repeat the process using both O. militaris and O. purpurea as references.
 
 ```sh
@@ -172,6 +172,7 @@ mkdir ./results/called_genotypes/temp_purp
 this tools requires "intervals", that are the regions to include in the analysis (for example, chromosomes and positions, or contigs).
 see: https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists
 In our case, contigs are named as as "name of the sample-gene name", so in the end I opted for using the vcf file containing the "known-variants", as list of intervals.
+
 scripts: conso_mili; conso.purp
 
 There are some memory constraints in the analyses above, so it is important to create temporary directories, if there are many samples.
