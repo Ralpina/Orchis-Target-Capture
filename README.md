@@ -1,6 +1,6 @@
 # Project description (Orchis-Target-Capture)
 
-This repository contains Shell scripts and R scripts for the the analysis of target capture data (Angiosperms353 baits) for populations of Orchis from a hybrid zone (O. militaris, O. purpurea and their hybrids, including some individuals of O. anthropophora and O. simia).
+This repository contains Shell scripts and R scripts for the the analysis of target capture data (Angiosperms353 baits) for populations of Orchis from a hybrid zone (O. militaris, O. purpurea and their hybrids, including some individuals of O. anthropophora and O. simia). The related manuscript is in preparation (Gargiulo R. et al.).
 
 # Table of contents
 -Directory description
