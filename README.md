@@ -19,6 +19,25 @@ other directories (not included in this repository): data: contains fastq files 
 # Programmes used
 bwa/0.7.17; samtools/1.13; bcftools/1.13; gatk/4.2.0.0; plink2
 
+References:
+Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience, 4. www.cog-genomics.org/plink/2.0/
+
+Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H (2021) Twelve years of SAMtools and BCFtools, GigaScience, 10(2) giab008 [33590861]
+
+DePristo M, Banks E, Poplin R, Garimella K, Maguire J, Hartl C, Philippakis A, del Angel G, Rivas MA, Hanna M, McKenna A, Fennell T, Kernytsky A, Sivachenko A, Cibulskis K, Gabriel S, Altshuler D, Daly M (2011) A framework for variation discovery and genotyping using next-generation DNA sequencing data. Nature Genetics, 43, 491-498.
+
+Li H, Durbin R (2009) Fast and accurate short read alignment with Burrows–Wheeler transform. Bioinformatics, 25(14), 1754–1760.
+
+McKenna A, Hanna M, Banks E, Sivachenko A, Cibulskis K, Kernytsky A, Garimella K, Altshuler D, Gabriel S, Daly M, DePristo MA (2010) The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Research, 20, 1297-303. 
+
+Van der Auwera GA, O'Connor BD (2020) Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
+
+
+
+
+
+
+
 
 # Pipeline: 
 Please note that most of the analyses were run using SLURM on KewHPC (https://rbg-kew-bioinformatics-utils.readthedocs.io/en/latest/), but info about job scheduling has been removed from the scripts.
