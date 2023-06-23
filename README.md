@@ -1,30 +1,34 @@
-## Analysis of targeted capture data (Angiosperms353 bait sets) in _Orchis_ populations from a hybrid zone
+# Analysis of targeted capture data (Angiosperms353 bait sets) in _Orchis_ populations from a hybrid zone
 
-This repository includes scripts for the the analysis of targeted capture data (Angiosperms353 baits) from populations of Orchis spp. from a hybrid zone (O. militaris, O. purpurea and their hybrids, including some individuals of O. anthropophora and O. simia). The related manuscript is in preparation (Bersweden L., Gargiulo R. et al.; updates about the manuscript will be shared here).
+This repository includes scripts for the the analysis of targeted capture data (Angiosperms353 baits) from populations of Orchis spp. from a hybrid zone (_O. militaris_, _O. purpurea_ and their hybrids, including some individuals of _O. anthropophora_ and _O. simia_). The related manuscript is in preparation (Bersweden L., Gargiulo R. et al.; updates about the manuscript will be shared here). Part of the workflow was adapted from one of the tutorials at the [ConGen2021 workshop](https://github.com/renaschweizer/congen-gatk).
 
-### Table of contents
--[Directory description]
+## Table of contents
+-[Directory description](https://github.com/Ralpina/Orchis-Target-Capture#directory-description)
 
--Programmes used
+-[Programmes used](https://github.com/Ralpina/Orchis-Target-Capture#programmes-used)
 
--Pipeline: Hybpiper; genotyping in GATK
+-[Pipeline](https://github.com/Ralpina/Orchis-Target-Capture#pipeline)
 
-### Directory description
-scripts: contains scripts for GATK and miscellaneous
+## Directory description
+-scripts: contains scripts for GATK and miscellaneous. Most of the analyses were run using SLURM on [KewHPC](https://rbg-kew-bioinformatics-utils.readthedocs.io/en/latest/), but info about job scheduling has been removed from the scripts.   
+-etc: contains other files used (sample lists, gene lists, etc.): blacklist, samplelist  
+-Other directories (not included in this repository) but referred to in the scripts:  
+ --data: contains fastq files (post fastqc and trimmomatic);  
+ --results: contains all results
 
-etc: contains other files used (sample lists, gene lists, etc.): blacklist, samplelist
+## Programmes and tools used
+bcftools/1.13; bwa/0.7.17; gatk/4.2.0.0; HybPiper/1.3; plink2; samtools/1.13
 
-other directories (not included in this repository): data: contains fastq files (post fastqc and trimmomatic); results: contains all results
-
-### Programmes used
-bwa/0.7.17; samtools/1.13; bcftools/1.13; gatk/4.2.0.0; plink2
-
-References:
+References:  
 Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience, 4. www.cog-genomics.org/plink/2.0/
 
 Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H (2021) Twelve years of SAMtools and BCFtools, GigaScience, 10(2) giab008 [33590861]
 
 DePristo M, Banks E, Poplin R, Garimella K, Maguire J, Hartl C, Philippakis A, del Angel G, Rivas MA, Hanna M, McKenna A, Fennell T, Kernytsky A, Sivachenko A, Cibulskis K, Gabriel S, Altshuler D, Daly M (2011) A framework for variation discovery and genotyping using next-generation DNA sequencing data. Nature Genetics, 43, 491-498.
+
+Johnson MG, Gardner, EM, Liu Y, Medina R, Goffinet B, Shaw AJ, ... & Wickett NJ (2016) HybPiper: Extracting coding sequence and introns for phylogenetics from high‐throughput sequencing reads using target enrichment. Applications in plant sciences, 4(7), 1600016.  https://doi.org/10.3732/apps.1600016
+
+Johnson M, Goldstein S, Acuña R, & The Gitter Badger (2018) mossmatters/HybPiper: Bug Fix Reverse Complement Sequences (v1.3.1). Zenodo. https://doi.org/10.5281/zenodo.1341845
 
 Li H, Durbin R (2009) Fast and accurate short read alignment with Burrows–Wheeler transform. Bioinformatics, 25(14), 1754–1760.
 
@@ -34,16 +38,15 @@ Van der Auwera GA, O'Connor BD (2020) Genomics in the Cloud: Using Docker, GATK,
 
 
 
+## Pipeline 
+### Running HybPiper to retrieve coding sequences and introns (Angiosperms353 bait set)
+For the HybPiper pipeline (including intronerate with the option supercontig), please refer to the HybPiper documentation [here](https://github.com/mossmatters/HybPiper/wiki) and [here](https://github.com/lindsawi/HybSeq-SNP-Extraction).  
 
-
-
-
-
-### Pipeline: 
-Please note that most of the analyses were run using SLURM on KewHPC (https://rbg-kew-bioinformatics-utils.readthedocs.io/en/latest/), but info about job scheduling has been removed from the scripts.
-For the hybpiper pipeline (including intronerate with the option supercontig): please refer to: https://github.com/mossmatters/HybPiper/wiki (see also: https://github.com/lindsawi/HybSeq-SNP-Extraction)
-#### Genes/samples excluded
-After the hybpiper pipeline: I created a blacklist of genes (blacklist) for which no sequence was retrieved (or only one sequence in one individuals, or only occurring in non-parental species, i.e. O. anthropophora and O. simia). Samples for which less than 50 genes were found were also removed; the final list of samples analysed is in: samplelist 
+### Genes/samples excluded
+After HybPiper, I created a blacklist of genes (in etc/blacklist) for which either:  
+-no sequence was retrieved;  
+-one sequence in one individual was retrieved;   
+-sequences were only occurring in non-parental species, i.e. _O. anthropophora_ and _O. simia_). Samples for which fewer than 50 genes were found were also removed; the final list of samples analysed is in: etc/samplelist. 
 
 ## 1) Creating reference sequences
 Based on the file gene_lengths.txt output by hybpiper, the samples (parental species) for which we have retrieved the longest sequences are:
