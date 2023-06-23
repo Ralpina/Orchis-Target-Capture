@@ -1,22 +1,22 @@
-# Project description (Orchis-Target-Capture)
+## Analysis of targeted capture data (Angiosperms353 bait sets) in _Orchis_ populations from a hybrid zone
 
-This repository contains Shell scripts and R scripts for the the analysis of target capture data (Angiosperms353 baits) for populations of Orchis from a hybrid zone (O. militaris, O. purpurea and their hybrids, including some individuals of O. anthropophora and O. simia). The related manuscript is in preparation (Gargiulo R. et al.).
+This repository includes scripts for the the analysis of targeted capture data (Angiosperms353 baits) from populations of Orchis spp. from a hybrid zone (O. militaris, O. purpurea and their hybrids, including some individuals of O. anthropophora and O. simia). The related manuscript is in preparation (Bersweden L., Gargiulo R. et al.; updates about the manuscript will be shared here).
 
-# Table of contents
--Directory description
+### Table of contents
+-[Directory description]
 
 -Programmes used
 
 -Pipeline: Hybpiper; genotyping in GATK
 
-# Directory description
+### Directory description
 scripts: contains scripts for GATK and miscellaneous
 
 etc: contains other files used (sample lists, gene lists, etc.): blacklist, samplelist
 
 other directories (not included in this repository): data: contains fastq files (post fastqc and trimmomatic); results: contains all results
 
-# Programmes used
+### Programmes used
 bwa/0.7.17; samtools/1.13; bcftools/1.13; gatk/4.2.0.0; plink2
 
 References:
@@ -39,7 +39,7 @@ Van der Auwera GA, O'Connor BD (2020) Genomics in the Cloud: Using Docker, GATK,
 
 
 
-# Pipeline: 
+### Pipeline: 
 Please note that most of the analyses were run using SLURM on KewHPC (https://rbg-kew-bioinformatics-utils.readthedocs.io/en/latest/), but info about job scheduling has been removed from the scripts.
 For the hybpiper pipeline (including intronerate with the option supercontig): please refer to: https://github.com/mossmatters/HybPiper/wiki (see also: https://github.com/lindsawi/HybSeq-SNP-Extraction)
 #### Genes/samples excluded
