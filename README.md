@@ -19,25 +19,6 @@ This repository includes scripts for the the analysis of targeted capture data (
 ## Programmes and tools used
 bcftools/1.13; bwa/0.7.17; gatk/4.2.0.0; HybPiper/1.3; plink2; samtools/1.13
 
-References:  
-Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience, 4. www.cog-genomics.org/plink/2.0/
-
-Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H (2021) Twelve years of SAMtools and BCFtools, GigaScience, 10(2) giab008 [33590861]
-
-DePristo M, Banks E, Poplin R, Garimella K, Maguire J, Hartl C, Philippakis A, del Angel G, Rivas MA, Hanna M, McKenna A, Fennell T, Kernytsky A, Sivachenko A, Cibulskis K, Gabriel S, Altshuler D, Daly M (2011) A framework for variation discovery and genotyping using next-generation DNA sequencing data. Nature Genetics, 43, 491-498.
-
-Johnson MG, Gardner, EM, Liu Y, Medina R, Goffinet B, Shaw AJ, ... & Wickett NJ (2016) HybPiper: Extracting coding sequence and introns for phylogenetics from high‐throughput sequencing reads using target enrichment. Applications in plant sciences, 4(7), 1600016.  https://doi.org/10.3732/apps.1600016
-
-Johnson M, Goldstein S, Acuña R, & The Gitter Badger (2018) mossmatters/HybPiper: Bug Fix Reverse Complement Sequences (v1.3.1). Zenodo. https://doi.org/10.5281/zenodo.1341845
-
-Li H, Durbin R (2009) Fast and accurate short read alignment with Burrows–Wheeler transform. Bioinformatics, 25(14), 1754–1760.
-
-McKenna A, Hanna M, Banks E, Sivachenko A, Cibulskis K, Kernytsky A, Garimella K, Altshuler D, Gabriel S, Daly M, DePristo MA (2010) The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Research, 20, 1297-303. 
-
-Van der Auwera GA, O'Connor BD (2020) Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
-
-
-
 ## Pipeline 
 ### Running HybPiper to retrieve coding sequences and introns (Angiosperms353 bait set)
 For the HybPiper pipeline (including intronerate with the option supercontig), please refer to the HybPiper documentation [here](https://github.com/mossmatters/HybPiper/wiki) and [here](https://github.com/lindsawi/HybSeq-SNP-Extraction).  
@@ -48,7 +29,7 @@ After HybPiper, I created a blacklist of genes (in etc/blacklist) for which eith
 -one sequence in one individual was retrieved;   
 -sequences were only occurring in non-parental species, i.e. _O. anthropophora_ and _O. simia_). Samples for which fewer than 50 genes were found were also removed; the final list of samples analysed is in: etc/samplelist. 
 
-## 1) Creating reference sequences
+### 1) Creating reference sequences
 Based on the file gene_lengths.txt output by hybpiper, the samples (parental species) for which we have retrieved the longest sequences are:
 
 O81 - Orchis militaris
@@ -79,7 +60,7 @@ cat results/hybpiper/O171/4*/O171/sequences/intron/4*_supercontig.fasta cat resu
 ```
 
 
-## 2) Preparing the reference indices for the reference sequences (bwa,samtools and gatk required)
+### 2) Preparing the reference indices for the reference sequences (bwa,samtools and gatk required)
 
 ```sh
 cd /results/hybpiper/refs
@@ -100,7 +81,7 @@ samtools faidx militaris.fa
 samtools faidx purpurea.fa
 ```
 
-## 3) Mapping samples to the references and preparing the bam files correctly (samtools required)
+### 3) Mapping samples to the references and preparing the bam files correctly (samtools required)
 scripts: 
 mapping, mapping2
 
@@ -110,11 +91,11 @@ GATK requires the BAM file to be sorted by coordinates.
 
 scripts: sortfix.sh, sortfix2.sh 
 
-## 4) Removing PCR duplicates (samtools required)
+### 4) Removing PCR duplicates (samtools required)
 
 scripts: rmdupli, rmdupli2 (last more than 3 hours)
 
-## 5)  Adding read group information (gatk required)
+### 5)  Adding read group information (gatk required)
 
 To perform the next steps in GATK, We will need to define the following:
 
@@ -128,7 +109,7 @@ To perform the next steps in GATK, We will need to define the following:
 script: addRG.sh, addRG2.sh
 
 
-## 6) Getting the "known-sites"  (bcftools, samtools and gatk required)
+### 6) Getting the "known-sites"  (bcftools, samtools and gatk required)
 
 The next step (gatk BQSR) needs a list of known sites to work correctly.
 We follow the intructions from https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-
@@ -159,7 +140,7 @@ gatk IndexFeatureFile -I ./results/known/militaris/calls.filter.vcf
 gatk IndexFeatureFile -I ./results/known/purpurea/calls.filter.vcf
 ```
 
-## 7)  Performing Base Quality Score Recalibration (BQSR) (gatk required)
+### 7)  Performing Base Quality Score Recalibration (BQSR) (gatk required)
 
 ```sh	
 mkdir ./results/bqsr
@@ -182,10 +163,10 @@ The covariates before and after BQSR can be compared using the tool AnalyzeCovar
 scripts: covar_mili.sh, covar_purp.sh
 
 
-## 8) Running Haplotype Caller to generate GVCF files (gatk required)
+### 8) Running Haplotype Caller to generate GVCF files (gatk required)
 scripts: haploCall_mili, haploCall_purp
 
-## 9) Consolidating genotypes (gatk required)
+### 9) Consolidating genotypes (gatk required)
 ```sh
 mkdir ./results/called_genotypes
 mkdir ./results/called_genotypes/temp
@@ -199,10 +180,10 @@ scripts: conso_mili; conso.purp
 
 There are some memory constraints in the analyses above, so it is important to create temporary directories, if there are many samples.
 	  
-## 10) Genotyping all GVCF files (gatk required)
+### 10) Genotyping all GVCF files (gatk required)
 scripts: genotype_mili, genotype_purp (these need a lot of memory)
 
-## 11) Hard-filtering: 
+### 11) Hard-filtering: 
 Selecting only SNPs: scripts: select_SNPs, select_SNPs2
 
 then:
@@ -250,7 +231,27 @@ plink2 --indep-pairwise 50 5 0.5 --vcf Hybrids_ref_militaris.recode.vcf --allow-
 plink2 --indep-pairwise 50 5 0.5 --vcf Hybrids_ref_purpurea.recode.vcf --allow-extra-chr --set-missing-var-ids @:#[rob]\$r,\$a --export vcf --out purpurea.plink
 ```
 
-Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
+## References 
+Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ (2015) Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience, 4. www.cog-genomics.org/plink/2.0/
+
+Danecek P, Bonfield JK, Liddle J, Marshall J, Ohan V, Pollard MO, Whitwham A, Keane T, McCarthy SA, Davies RM, Li H (2021) Twelve years of SAMtools and BCFtools, GigaScience, 10(2) giab008 [33590861]
+
+DePristo M, Banks E, Poplin R, Garimella K, Maguire J, Hartl C, Philippakis A, del Angel G, Rivas MA, Hanna M, McKenna A, Fennell T, Kernytsky A, Sivachenko A, Cibulskis K, Gabriel S, Altshuler D, Daly M (2011) A framework for variation discovery and genotyping using next-generation DNA sequencing data. Nature Genetics, 43, 491-498.
+
+Johnson MG, Gardner, EM, Liu Y, Medina R, Goffinet B, Shaw AJ, ... & Wickett NJ (2016) HybPiper: Extracting coding sequence and introns for phylogenetics from high‐throughput sequencing reads using target enrichment. Applications in plant sciences, 4(7), 1600016.  https://doi.org/10.3732/apps.1600016
+
+Johnson M, Goldstein S, Acuña R, & The Gitter Badger (2018) mossmatters/HybPiper: Bug Fix Reverse Complement Sequences (v1.3.1). Zenodo. https://doi.org/10.5281/zenodo.1341845
+
+Li H, Durbin R (2009) Fast and accurate short read alignment with Burrows–Wheeler transform. Bioinformatics, 25(14), 1754–1760.
+
+McKenna A, Hanna M, Banks E, Sivachenko A, Cibulskis K, Kernytsky A, Garimella K, Altshuler D, Gabriel S, Daly M, DePristo MA (2010) The Genome Analysis Toolkit: a MapReduce framework for analyzing next-generation DNA sequencing data. Genome Research, 20, 1297-303. 
+
+Van der Auwera GA, O'Connor BD (2020) Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
+
+
+
+
+[![CC BY 4.0][cc-by-shield]][cc-by]
 
 This work is licensed under a
 [Creative Commons Attribution 4.0 International License][cc-by].
