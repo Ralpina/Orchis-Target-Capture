@@ -77,18 +77,16 @@ samtools faidx purpurea.fa
 
 ### 3) Mapping samples to the references and preparing the bam files correctly 
 Tool required: samtools.  
-See script ```mapping.sh```.  
+See script ```mapping.sh```  
 We then need to make sure that the mate pair information and insert sizes are correct in our BAM using samtools fixmate. 
 GATK requires the BAM file to be sorted by coordinates: see script ```sortfix.sh``` 
 
-### 4) Removing PCR duplicates (samtools required)
+### 4) Removing PCR duplicates 
+Tool required: samtools.  
+See script ```rmdupli.sh```
 
-scripts: rmdupli, rmdupli2 (last more than 3 hours)
-
-### 5)  Adding read group information (gatk required)
-
-To perform the next steps in GATK, We will need to define the following:
-
+### 5)  Adding read group information 
+To perform the next steps in GATK, we will need to define the following:  
     RUN_ID  for the sequencing run 
     RGID=String Read Group ID
     RGLB=String Read Group Library
@@ -96,11 +94,9 @@ To perform the next steps in GATK, We will need to define the following:
     RGPU=String Read Group platform unit (eg. run barcode of run Id + lane number)
     RGSM=String Read Group sample name
 
-script: addRG.sh, addRG2.sh
-
+See script: ```addRG.sh```
 
 ### 6) Getting the "known-sites"  (bcftools, samtools and gatk required)
-
 The next step (gatk BQSR) needs a list of known sites to work correctly.
 We follow the intructions from https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-
 and do an initial round of variant calling on your original, unrecalibrated data, followed by filtering, using bcftools.
