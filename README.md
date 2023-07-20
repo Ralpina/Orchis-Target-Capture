@@ -38,16 +38,12 @@ O171 - _Orchis purpurea_
 
 GATK requires a reference genome, and therefore I repeat the following analyses using both parental species as references, to prevent the choice of the reference sample from affecting inference and interpretation (Every script repeated twice depending on the reference species).
 
-In the directories O171 and O81 (created by hybpiper), I create the directory gene_excl, in which I move all the genes of the blacklist
-script for copying (just in case, then I remove them) genes to gene_excl: loop_blacklist
+In the directories O171 and O81 (created by hybpiper), I create the directory gene_excl, in which I move all the genes of the blacklist (just in case! then I'll remove them):
 
 ```sh
 for i in `cat blacklist.txt`; do cp -r ./results/hybpiper/O171/$i ./results/hybpiper/O171/gene_excl; done
 for i in `cat blacklist.txt`; do cp -r ./results/hybpiper/O171/$i ./results/hybpiper/O81/gene_excl; done
-```
-then I remove them
-
-```sh
+# then I'll remove them
 for i in `cat blacklist.txt`; do rm -r ./results/hybpiper/O171/$i; done
 for i in `cat blacklist.txt`; do rm -r ./results/hybpiper/O81/$i; done
 ```
