@@ -1,6 +1,6 @@
 # Analysis of targeted capture data (Angiosperms353 bait sets) in _Orchis_ populations from a hybrid zone
 
-This repository includes scripts for the the analysis of targeted capture data (Angiosperms353 baits) from populations of Orchis spp. from a hybrid zone (_O. militaris_, _O. purpurea_ and their hybrids, including some individuals of _O. anthropophora_ and _O. simia_). The related manuscript is in preparation (Bersweden L., Gargiulo R. et al.; updates about the manuscript will be shared here). Part of the workflow was adapted from one of the tutorials at the [ConGen2021 workshop](https://github.com/renaschweizer/congen-gatk).
+This repository includes scripts for the analysis of targeted capture data (Angiosperms353 baits) from populations of _Orchis_ spp. from a hybrid zone (_O. militaris_, _O. purpurea_ and their hybrids, including some individuals of _O. anthropophora_ and _O. simia_). The associated manuscript is in preparation (Bersweden L., Gargiulo R. et al.; updates about the manuscript will be shared here). Part of the workflow was adapted from one of the tutorials at the [ConGen2021 workshop](https://github.com/renaschweizer/congen-gatk).
 
 ## Table of contents
 -[Directory description](https://github.com/Ralpina/Orchis-Target-Capture#directory-description)
@@ -17,7 +17,7 @@ This repository includes scripts for the the analysis of targeted capture data (
  --results: contains all results
 
 ## Programmes and tools used
-bcftools/1.13; bwa/0.7.17; gatk/4.2.0.0; HybPiper/1.3; plink2; samtools/1.13
+[bcftools/1.13](https://github.com/samtools/bcftools/releases/); [bwa/0.7.17](https://github.com/lh3/bwa); [gatk/4.2.0.0](https://gatk.broadinstitute.org/hc/en-us); [HybPiper/1.3](https://github.com/mossmatters/HybPiper); [plink2](https://www.cog-genomics.org/plink/2.0/); [samtools/1.13](https://github.com/samtools/bcftools/releases/)
 
 ## Pipeline 
 ### Running HybPiper to retrieve coding sequences and introns (Angiosperms353 bait set)
