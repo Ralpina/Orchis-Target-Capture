@@ -36,7 +36,7 @@ O81 - _Orchis militaris_
 
 O171 - _Orchis purpurea_
 
-GATK requires a reference genome, and therefore I repeat the following analyses using both parental species as references, to prevent the choice of the reference sample from affecting inference and interpretation (Every script repeated twice depending on the reference species).
+GATK requires a reference genome, and therefore I repeat the following analyses using both parental species as references, to prevent the choice of the reference sample from affecting inference and interpretation.
 
 In the directories O171 and O81 (created by hybpiper), I create the directory gene_excl, in which I move all the genes of the blacklist (just in case! then I'll remove them):
 
@@ -56,8 +56,8 @@ cat results/hybpiper/O171/4*/O171/sequences/intron/4*_supercontig.fasta cat resu
 ```
 
 
-### 2) Preparing the reference indices for the reference sequences (bwa,samtools and gatk required)
-
+### 2) Preparing the reference indices for the reference sequences 
+Tools required: bwa,samtools and gatk
 ```sh
 cd /results/hybpiper/refs
 bwa index militaris
@@ -66,9 +66,7 @@ bwa index purpurea
 samtools faidx militaris
 samtools faidx purpurea     
 ```
-
-for gatk, we need to create a copy with the extension .fa, otherwise it doesn't recognise it! So I had to come back and repeat these
-
+We need to create a copy with the extension .fa (or gatk wouldn't recognise it!):
 ```sh
 gatk CreateSequenceDictionary -R militaris.fa
 gatk CreateSequenceDictionary -R purpurea.fa
@@ -77,15 +75,11 @@ samtools faidx militaris.fa
 samtools faidx purpurea.fa
 ```
 
-### 3) Mapping samples to the references and preparing the bam files correctly (samtools required)
-scripts: 
-mapping, mapping2
-
-Then we need to make sure the mate pair information and insert sizes are correct in our BAM using samtools fixmate. 
-
-GATK requires the BAM file to be sorted by coordinates.
-
-scripts: sortfix.sh, sortfix2.sh 
+### 3) Mapping samples to the references and preparing the bam files correctly 
+Tool required: samtools.  
+See script ```mapping.sh```.  
+We then need to make sure that the mate pair information and insert sizes are correct in our BAM using samtools fixmate. 
+GATK requires the BAM file to be sorted by coordinates: see script ```sortfix.sh``` 
 
 ### 4) Removing PCR duplicates (samtools required)
 
