@@ -32,9 +32,9 @@ After HybPiper, I created a blacklist of genes (in etc/blacklist) for which eith
 ### 1) Creating reference sequences
 Based on the file gene_lengths.txt output by hybpiper, the samples (parental species) for which we have retrieved the longest sequences are:
 
-O81 - Orchis militaris
+O81 - _Orchis militaris_
 
-O171 - Orchis purpurea
+O171 - _Orchis purpurea_
 
 GATK requires a reference genome, and therefore I repeat the following analyses using both parental species as references, to prevent the choice of the reference sample from affecting inference and interpretation (Every script repeated twice depending on the reference species).
 
