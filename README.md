@@ -57,7 +57,7 @@ cat results/hybpiper/O171/4*/O171/sequences/intron/4*_supercontig.fasta cat resu
 
 
 ### 2) Preparing the reference indices for the reference sequences 
-Tools required: bwa,samtools and gatk
+Tools required: bwa,samtools and GATK
 ```sh
 cd /results/hybpiper/refs
 bwa index militaris
@@ -87,42 +87,31 @@ See script ```rmdupli.sh```
 
 ### 5)  Adding read group information 
 To perform the next steps in GATK, we will need to define the following:  
-    RUN_ID  for the sequencing run 
-    RGID=String Read Group ID
-    RGLB=String Read Group Library
-    RGPL=String Read Group platform (e.g. illumina, solid)
-    RGPU=String Read Group platform unit (eg. run barcode of run Id + lane number)
-    RGSM=String Read Group sample name
-
+    RUN_ID  for the sequencing run  
+    RGID=String Read Group ID  
+    RGLB=String Read Group Library  
+    RGPL=String Read Group platform (e.g. illumina, solid)  
+    RGPU=String Read Group platform unit (eg. run barcode of run Id + lane number)  
+    RGSM=String Read Group sample name  
 See script: ```addRG.sh```
 
-### 6) Getting the "known-sites"  (bcftools, samtools and gatk required)
+### 6) Getting the "known-sites"  
+Tools required: bcftools, samtools and GATK.
 The next step (gatk BQSR) needs a list of known sites to work correctly.
 We follow the intructions from https://gatk.broadinstitute.org/hc/en-us/articles/360035890531-Base-Quality-Score-Recalibration-BQSR-
 and do an initial round of variant calling on your original, unrecalibrated data, followed by filtering, using bcftools.
-As usual, we repeat the process using both O. militaris and O. purpurea as references.
-
+As usual, we repeat the process using both _O. militaris_ and _O. purpurea_ as references.
 ```sh
 mkdir ./results/known
 mkdir ./results/known/militaris
 mkdir ./results/known/purpurea
 ```
-
-scripts: 
-bcfcall, bcfilter.sh  (very fast, done for both ref. militaris and ref. purpurea)
- 
-the filtering process first extracts variants with not more than 2 alleles and then removes variant with either low quality or low depth
-The files with the known variants are:
-
-./results/known/militaris/calls.filter.vcf
-
-./results/known/purpurea/calls.filter.vcf
-
-then, generate the index from these:
-
+See script ```bcfcall``` (runs very quickly). The filtering process first extracts variants with not more than 2 alleles and then removes variant with either low quality or low depth. The files with the known variants are:  
+```./results/known/militaris/calls.filter.vcf```  
+```./results/known/purpurea/calls.filter.vcf```  
+From these, we generate the index files:
 ```sh
 gatk IndexFeatureFile -I ./results/known/militaris/calls.filter.vcf
-
 gatk IndexFeatureFile -I ./results/known/purpurea/calls.filter.vcf
 ```
 
