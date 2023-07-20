@@ -1,3 +1,0 @@
-for sample in `cat samplelist.txt`
-  do samtools markdup -r ./results/mapping/purpurea/${sample}.sorted.bam ./results/mapping/purpurea/${sample}.unique.bam
-done
