@@ -115,27 +115,13 @@ gatk IndexFeatureFile -I ./results/known/militaris/calls.filter.vcf
 gatk IndexFeatureFile -I ./results/known/purpurea/calls.filter.vcf
 ```
 
-### 7)  Performing Base Quality Score Recalibration (BQSR) (gatk required)
-
+### 7)  Performing Base Quality Score Recalibration (BQSR)
+Tool required: GATK.
 ```sh	
 mkdir ./results/bqsr
 ```
-
-scripts: BQSR, BQSR2
-
-This has generated a recalibration table based on various covariates, see https://gatk.broadinstitute.org/hc/en-us/articles/360035890531
-Next, we apply this recalibration info to our BAM files to make a new BAM with recalibrated quality scores.
- 
-scripts: applyBQSR, applyBQSR2
-
-The whole recalibration procedure is applied a second time:
-
-scripts: 
-repBQSR, repBQSR2 (step baserecalibrator); reapplyBQSR, reapplyBQSR2 (step apply recalibration)
-  
-The covariates before and after BQSR can be compared using the tool AnalyzeCovariates in gatk, which generates plots in pdf format:
-
-scripts: covar_mili.sh, covar_purp.sh
+See script ```BQSR```. This generates a recalibration table based on various covariates, see [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531). Next, we apply this recalibration info to our BAM files to make a new BAM with recalibrated quality scores; see script ```applyBQSR```.
+The whole recalibration procedure is performed a second time, see script ```repBQSR```, followed by ```reapplyBQSR```. The covariates before and after BQSR can be compared using the tool AnalyzeCovariates in GATK, which generates plots in pdf format. See scripts: ```covar_mili.sh```,```covar_purp.sh```
 
 
 ### 8) Running Haplotype Caller to generate GVCF files (gatk required)
