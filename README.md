@@ -125,27 +125,26 @@ The whole recalibration procedure is performed a second time, see script ```repB
 
 
 ### 8) Running Haplotype Caller to generate GVCF files (gatk required)
-scripts: haploCall_mili, haploCall_purp
+See script: ```haploCall.sh```
 
 ### 9) Consolidating genotypes (gatk required)
+This analysis may generated some momory issues, so it is important to create temporary directories, when many samples are analysed.
 ```sh
 mkdir ./results/called_genotypes
 mkdir ./results/called_genotypes/temp
 mkdir ./results/called_genotypes/temp_purp
 ```
-this tools requires "intervals", that are the regions to include in the analysis (for example, chromosomes and positions, or contigs).
+Consolidating genotypes will require "intervals", that are the regions to include in the analysis (for example, chromosomes and positions, or contigs).
 see: https://gatk.broadinstitute.org/hc/en-us/articles/360035531852-Intervals-and-interval-lists
-In our case, contigs are named as as "name of the sample-gene name", so in the end I opted for using the vcf file containing the "known-variants", as list of intervals.
+In our case, contigs are named as as "name of the sample-gene name", so in the end I opted for using the vcf file containing the "known-variants", as list of intervals.  
+See script: conso.sh
 
-scripts: conso_mili; conso.purp
-
-There are some memory constraints in the analyses above, so it is important to create temporary directories, if there are many samples.
 	  
 ### 10) Genotyping all GVCF files (gatk required)
-scripts: genotype_mili, genotype_purp (these need a lot of memory)
+Script: genotype.sh (this needs a lot of memory)
 
 ### 11) Hard-filtering: 
-Selecting only SNPs: scripts: select_SNPs, select_SNPs2
+Selecting only SNPs with the script: select_SNPs
 
 then:
 
