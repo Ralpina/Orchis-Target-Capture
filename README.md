@@ -121,7 +121,7 @@ Tool required: GATK.
 mkdir ./results/bqsr
 ```
 See script ```BQSR```. This generates a recalibration table based on various covariates, see [here](https://gatk.broadinstitute.org/hc/en-us/articles/360035890531). Next, we apply this recalibration info to our BAM files to make a new BAM with recalibrated quality scores; see script ```applyBQSR```.
-The whole recalibration procedure is performed a second time, see script ```repBQSR```, followed by ```reapplyBQSR```. The covariates before and after BQSR can be compared using the tool AnalyzeCovariates in GATK, which generates plots in pdf format. See scripts: ```covar_mili.sh```,```covar_purp.sh```
+The whole recalibration procedure is performed a second time, see script ```repBQSR```, followed by ```reapplyBQSR```. The covariates before and after BQSR can be compared using the tool AnalyzeCovariates in GATK, which generates plots in pdf format. See scripts: ```covar.sh```.
 
 
 ### 8) Running Haplotype Caller to generate GVCF files (gatk required)
